@@ -1,0 +1,43 @@
+services:
+  meet-frontend:
+    image: meet-frontend:latest
+    container_name: meet-frontend
+    environment:
+      LIVEKIT_URL: "wss://rtc.meet.limpopo113.ru"
+      LIVEKIT_API_KEY: ${LIVEKIT_API_KEY:-devkey}
+      LIVEKIT_API_SECRET: ${LIVEKIT_API_SECRET:-6666aaeb-87d1-4122-a16e-1bae45e16093}
+    networks:
+      - app_network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.meet-frontend.rule=Host(`meet.limpopo113.ru`)"
+      - "traefik.http.routers.meet-frontend.priority=1"
+      - "traefik.http.routers.meet-frontend.entrypoints=websecure"
+      - "traefik.http.routers.meet-frontend.tls=true"
+      - "traefik.http.routers.meet-frontend.tls.certresolver=letsencrypt"
+      - "traefik.http.services.meet-frontend.loadbalancer.server.port=3000"
+
+  meet-livekit:
+    image: livekit/livekit-server:latest
+    container_name: meet-livekit
+    command: --config /etc/livekit.yaml
+    volumes:
+      - ./configs/livekit/livekit.yaml:/etc/livekit.yaml
+    networks:
+      - app_network
+    ports:
+      - "7881:7881"
+      - "50000-50100:50000-50100/udp"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.meet-livekit.rule=Host(`rtc.meet.limpopo113.ru`)"
+      - "traefik.http.routers.meet-livekit.entrypoints=websecure"
+      - "traefik.http.routers.meet-livekit.tls=true"
+      - "traefik.http.routers.meet-livekit.tls.certresolver=letsencrypt"
+      - "traefik.http.services.meet-livekit.loadbalancer.server.port=7880"
+      - "traefik.docker.network=app_network"
+
+networks:
+  app_network:
+    name: app_network
+    external: true
