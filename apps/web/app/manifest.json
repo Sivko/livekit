@@ -1,0 +1,36 @@
+{
+  "name": "LiveKit Meet",
+  "short_name": "LiveKit Meet",
+  "description": "Conference app built with LiveKit open source",
+  "icons": [
+    {
+      "src": "/images/livekit-apple-touch.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/images/livekit-apple-touch.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/images/livekit-apple-touch.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/images/livekit-apple-touch.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "theme_color": "#070707",
+  "background_color": "#070707",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait"
+}

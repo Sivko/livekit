@@ -5,6 +5,12 @@ import type { Metadata, Viewport } from 'next';
 import { Toaster } from 'react-hot-toast';
 
 export const metadata: Metadata = {
+  applicationName: 'LiveKit Meet',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: 'LiveKit Meet',
+  },
   title: {
     default: 'LiveKit Meet | Conference app build with LiveKit open source',
     template: '%s',
